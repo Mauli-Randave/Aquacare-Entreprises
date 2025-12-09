@@ -1,13 +1,13 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Sun, Zap, Droplet } from 'lucide-react';
-import { PRODUCTS } from '../constants';
+import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
 import HeroSlider from '../components/HeroSlider';
 
 const Home: React.FC = () => {
-  const featuredProducts = PRODUCTS.slice(0, 3);
+  const { products, loading } = useProducts();
+  const featuredProducts = products.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -58,11 +58,15 @@ const Home: React.FC = () => {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProducts.map(p => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          {loading ? (
+             <div className="text-center py-12 text-slate-400">Loading products...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredProducts.map(p => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

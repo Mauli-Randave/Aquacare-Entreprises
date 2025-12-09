@@ -1,22 +1,25 @@
 import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, ShoppingCart, Star, ArrowLeft, Truck, Shield } from 'lucide-react';
-import { PRODUCTS } from '../constants';
+import { useProducts } from '../context/ProductContext';
 import { useCart } from '../App';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { products, loading } = useProducts();
   const { addToCart } = useCart();
   
-  const product = PRODUCTS.find(p => p.id === id);
+  const product = products.find(p => p.id === id);
   
   // Simple "AI" related products logic (Same category, excluding current)
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return PRODUCTS
+    return products
       .filter(p => p.category === product.category && p.id !== product.id)
       .slice(0, 3);
-  }, [product]);
+  }, [product, products]);
+
+  if (loading) return <div className="p-20 text-center">Loading details...</div>;
 
   if (!product) {
     return <div className="p-12 text-center">Product not found.</div>;
@@ -69,7 +72,7 @@ const ProductDetail: React.FC = () => {
             </p>
 
             <div className="space-y-4 mb-8">
-              {product.features.map((feature, idx) => (
+              {product.features?.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-slate-700">
                   <div className="w-6 h-6 rounded-full bg-aqua-100 flex items-center justify-center text-aqua-600 flex-shrink-0">
                     <Check size={14} />

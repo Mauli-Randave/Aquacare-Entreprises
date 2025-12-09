@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Sparkles, Filter, X } from 'lucide-react';
-import { PRODUCTS, CATEGORIES } from '../constants';
+import { CATEGORIES } from '../constants';
+import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
 import { searchProductsWithAI } from '../services/geminiService';
 
 const Shop: React.FC = () => {
+  const { products, loading } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isAiSearching, setIsAiSearching] = useState(false);
@@ -37,28 +39,28 @@ const Shop: React.FC = () => {
   };
 
   const filteredProducts = useMemo(() => {
-    let products = PRODUCTS;
+    let result = products;
 
     // 1. Filter by Category
     if (selectedCategory !== 'All') {
-      products = products.filter(p => p.category === selectedCategory);
+      result = result.filter(p => p.category === selectedCategory);
     }
 
     // 2. Filter by AI Recommendation (High Priority)
     if (aiRecommendation) {
-      products = products.filter(p => aiRecommendation.ids.includes(p.id));
+      result = result.filter(p => aiRecommendation.ids.includes(p.id));
     } 
     // 3. OR Filter by Standard Text Search (Low Priority, only if no AI results active)
     else if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      products = products.filter(p => 
+      result = result.filter(p => 
         p.name.toLowerCase().includes(q) || 
         p.description.toLowerCase().includes(q)
       );
     }
 
-    return products;
-  }, [selectedCategory, aiRecommendation, searchQuery]);
+    return result;
+  }, [selectedCategory, aiRecommendation, searchQuery, products]);
 
   return (
     <div className="min-h-screen bg-slate-50 pt-8 pb-24">
@@ -71,7 +73,9 @@ const Shop: React.FC = () => {
             {/* Title */}
             <div>
               <h1 className="text-2xl font-bold text-slate-900">Shop Products</h1>
-              <p className="text-slate-500 text-sm mt-1">Found {filteredProducts.length} items</p>
+              <p className="text-slate-500 text-sm mt-1">
+                 {loading ? 'Loading...' : `Found ${filteredProducts.length} items`}
+              </p>
             </div>
 
             {/* AI Search Bar */}
@@ -137,7 +141,9 @@ const Shop: React.FC = () => {
         </div>
 
         {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+             <div className="text-center py-20 text-slate-400">Loading catalog...</div>
+        ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map(product => (
               <ProductCard key={product.id} product={product} />

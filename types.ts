@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'Water Filters' | 'Solar Coolers' | 'Solar Panels';
+  category: 'Water Filters' | 'Solar Coolers' | 'Solar Panels' | 'Filter Components' | 'Industrial RO Plants' | string;
   price: number;
   description: string;
   features: string[];
@@ -9,6 +9,7 @@ export interface Product {
   rating: number;
   reviews: number;
   stock: number;
+  created_at?: string;
 }
 
 export interface CartItem extends Product {
@@ -19,7 +20,7 @@ export interface Order {
   id: string;
   customerName: string;
   total: number;
-  status: 'Pending' | 'Shipped' | 'Delivered';
+  status: 'Pending' | 'Shipped' | 'Delivered' | 'Processing' | 'Cancelled';
   date: string;
 }
 
@@ -30,12 +31,6 @@ export interface AdminStats {
   customerSatisfaction: number;
 }
 
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-}
-
-// Gemini specific types for our custom implementation
 export interface AIRecommendation {
   productIds: string[];
   reasoning: string;
