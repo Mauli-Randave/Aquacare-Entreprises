@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartItem, Product } from './types';
@@ -11,8 +12,10 @@ import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import About from './pages/About';
 import { AuthProvider } from './context/AuthContext';
 import { ProductProvider } from './context/ProductContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // --- Cart Context Setup ---
 interface CartContextType {
@@ -67,43 +70,45 @@ const App: React.FC = () => {
   const clearCart = () => setCartItems([]);
 
   return (
-    <AuthProvider>
-      <ProductProvider>
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
-          <Router>
-            <ScrollToTop />
-            <div className="flex flex-col min-h-screen">
-              <Routes>
-                {/* Admin Route */}
-                <Route path="/admin" element={<AdminDashboard />} />
-                
-                {/* Auth Routes */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                
-                {/* Public/Protected Routes */}
-                <Route path="*" element={
-                  <>
-                    <Navbar />
-                    <main className="flex-grow">
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/shop" element={<Shop />} />
-                        <Route path="/product/:id" element={<ProductDetail />} />
-                        <Route path="/cart" element={<Cart />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/about" element={<div className="p-20 text-center">About Page Content</div>} />
-                      </Routes>
-                    </main>
-                    <Footer />
-                  </>
-                } />
-              </Routes>
-            </div>
-          </Router>
-        </CartContext.Provider>
-      </ProductProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ProductProvider>
+          <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
+            <Router>
+              <ScrollToTop />
+              <div className="flex flex-col min-h-screen">
+                <Routes>
+                  {/* Admin Route */}
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  
+                  {/* Auth Routes */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  
+                  {/* Public/Protected Routes */}
+                  <Route path="*" element={
+                    <>
+                      <Navbar />
+                      <main className="flex-grow">
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/shop" element={<Shop />} />
+                          <Route path="/product/:id" element={<ProductDetail />} />
+                          <Route path="/cart" element={<Cart />} />
+                          <Route path="/profile" element={<Profile />} />
+                          <Route path="/about" element={<About />} />
+                        </Routes>
+                      </main>
+                      <Footer />
+                    </>
+                  } />
+                </Routes>
+              </div>
+            </Router>
+          </CartContext.Provider>
+        </ProductProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
-import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react';
+import { LogIn, Mail, Lock, AlertCircle, ArrowRight } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -31,39 +32,45 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="w-12 h-12 bg-aqua-100 rounded-xl flex items-center justify-center text-aqua-600">
-            <LogIn size={24} />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+         <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-cyan-200/20 dark:bg-cyan-900/20 rounded-full blur-3xl animate-blob"></div>
+         <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-200/20 dark:bg-blue-900/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+      </div>
+
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <div className="flex justify-center mb-6">
+          <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-cyan-500/30 transform rotate-3">
+            <LogIn size={28} />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">
-          Sign in to your account
+        <h2 className="text-center text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Welcome Back
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-600">
-          Or{' '}
-          <Link to="/register" className="font-medium text-aqua-600 hover:text-aqua-500">
-            create a new account
-          </Link>
+        <p className="mt-2 text-center text-sm text-slate-500 dark:text-slate-400">
+          Sign in to access your dashboard
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-sm border border-slate-100 sm:rounded-xl sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl py-10 px-6 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 border border-white/50 dark:border-slate-800 sm:rounded-3xl sm:px-12 transition-colors duration-300">
           <form className="space-y-6" onSubmit={handleLogin}>
             {error && (
-              <div className="bg-red-50 border border-red-100 text-red-600 text-sm p-4 rounded-lg flex items-center gap-2">
-                <AlertCircle size={16} />
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 text-sm p-4 rounded-xl flex items-center gap-3 animate-slide-up">
+                <AlertCircle size={18} className="flex-shrink-0" />
                 {error}
               </div>
             )}
             
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700">
-                Email address
+            <div className="space-y-1">
+              <label htmlFor="email" className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1">
+                Email Address
               </label>
-              <div className="mt-1 relative">
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-cyan-500 transition-colors">
+                  <Mail size={20} />
+                </div>
                 <input
                   id="email"
                   name="email"
@@ -72,20 +79,20 @@ const Login: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-3 pl-10 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 sm:text-sm"
-                  placeholder="you@example.com"
+                  className="block w-full pl-12 pr-4 py-3.5 bg-slate-50/80 dark:bg-slate-800 border-0 rounded-xl text-slate-900 dark:text-white ring-1 ring-slate-200 dark:ring-slate-700 focus:ring-2 focus:ring-cyan-400 dark:focus:ring-cyan-500 focus:bg-white dark:focus:bg-slate-800 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none transition-all duration-300 sm:text-sm font-medium shadow-inner-soft"
+                  placeholder="name@company.com"
                 />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                  <Mail size={18} />
-                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+            <div className="space-y-1">
+              <label htmlFor="password" className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1">
                 Password
               </label>
-              <div className="mt-1 relative">
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-cyan-500 transition-colors">
+                  <Lock size={20} />
+                </div>
                 <input
                   id="password"
                   name="password"
@@ -94,12 +101,9 @@ const Login: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-3 pl-10 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 sm:text-sm"
+                  className="block w-full pl-12 pr-4 py-3.5 bg-slate-50/80 dark:bg-slate-800 border-0 rounded-xl text-slate-900 dark:text-white ring-1 ring-slate-200 dark:ring-slate-700 focus:ring-2 focus:ring-cyan-400 dark:focus:ring-cyan-500 focus:bg-white dark:focus:bg-slate-800 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none transition-all duration-300 sm:text-sm font-medium shadow-inner-soft"
                   placeholder="••••••••"
                 />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                  <Lock size={18} />
-                </div>
               </div>
             </div>
 
@@ -109,16 +113,16 @@ const Login: React.FC = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-slate-300 rounded"
+                  className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-slate-300 rounded cursor-pointer"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-900">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-600 dark:text-slate-400 cursor-pointer select-none">
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-aqua-600 hover:text-aqua-500">
-                  Forgot your password?
+                <a href="#" className="font-medium text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300 transition-colors">
+                  Forgot password?
                 </a>
               </div>
             </div>
@@ -127,12 +131,21 @@ const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-slate-900 hover:bg-aqua-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-aqua-500 disabled:opacity-50 transition-colors"
+                className="w-full flex justify-center items-center gap-2 py-4 px-4 border border-transparent rounded-xl shadow-lg shadow-cyan-500/30 text-sm font-bold text-white bg-gradient-to-r from-slate-900 to-slate-800 dark:from-cyan-600 dark:to-blue-600 hover:from-cyan-600 hover:to-blue-600 dark:hover:from-cyan-500 dark:hover:to-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:-translate-y-0.5"
               >
-                {loading ? 'Signing in...' : 'Sign in'}
+                {loading ? 'Signing in...' : 'Sign In to Account'} <ArrowRight size={18} />
               </button>
             </div>
           </form>
+
+          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+             <p className="text-sm text-slate-500 dark:text-slate-400">
+                Don't have an account?{' '}
+                <Link to="/register" className="font-bold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                  Create one now
+                </Link>
+             </p>
+          </div>
         </div>
       </div>
     </div>

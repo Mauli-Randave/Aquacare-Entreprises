@@ -27,6 +27,7 @@ export const searchProductsWithAI = async (query: string): Promise<{ recommended
   const prompt = `
     You are an intelligent sales assistant for Aquacare Enterprises.
     We sell Water Filters, Solar Coolers, and Solar Panels.
+    Note: All prices are in Indian Rupees (₹).
     
     Here is our product catalog:
     ${productContext}

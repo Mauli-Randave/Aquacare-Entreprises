@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -8,53 +7,56 @@ const SLIDES = [
     id: 1,
     title: "Aquacare Enterprises",
     subtitle: "Complete Water Purification & Solar Solutions. Delivering purity and energy for a sustainable future.",
-    // Updated: High-tech blue water filter aesthetic (resembling Purosis home)
-    image: "https://images.unsplash.com/photo-1581093458791-9f302e68383e?q=80&w=2070&auto=format&fit=crop", 
+    // Abstract water image for main slide
+    image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2069&auto=format&fit=crop", 
     color: "from-cyan-950",
     accent: "text-aqua-400",
     button: "bg-aqua-500 hover:bg-aqua-600",
-    link: "/shop"
+    link: "/about" // Redirect to About Us
   },
   {
     id: 2,
     title: "SS Water Coolers",
     subtitle: "Premium stainless steel water coolers for schools, offices, and industries. Cold water on demand.",
-    // Updated: Glass of pure water image (moved from previous Slide 1)
-    image: "https://images.unsplash.com/photo-1546552356-3fae876a61ca?q=80&w=2070&auto=format&fit=crop", 
+    // Realistic Stainless Steel Water Cooler Image
+    image: "https://cpimg.tistatic.com/05466436/b/4/Stainless-Steel-Water-Cooler.jpg", 
     color: "from-blue-950",
     accent: "text-blue-300",
     button: "bg-blue-600 hover:bg-blue-700",
-    link: "/shop"
+    link: "/about" // Redirect to About Us
   },
   {
     id: 3,
     title: "Solar Energy Panels",
     subtitle: "Harness the power of the sun. High-efficiency PV cells for your home and business.",
+    // High-res Solar Panel installation
     image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop",
     color: "from-amber-950",
     accent: "text-solar-500",
     button: "bg-solar-600 hover:bg-solar-700",
-    link: "/shop"
+    link: "/about" // Redirect to About Us
   },
   {
     id: 4,
     title: "Filter Components",
     subtitle: "High-quality cartridges, membranes, and pumps for all types of RO systems.",
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2070&auto=format&fit=crop",
+    // Industrial components/gauges/piping close-up
+    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
     color: "from-slate-900",
     accent: "text-slate-300",
     button: "bg-slate-600 hover:bg-slate-700",
-    link: "/shop"
+    link: "/about" // Redirect to About Us
   },
   {
     id: 5,
     title: "Industrial RO Plants",
-    subtitle: "Large-scale water treatment solutions for factories and commercial complexes.",
-    image: "https://images.unsplash.com/photo-1563950708942-db5d9dcca7a7?q=80&w=1974&auto=format&fit=crop",
+    subtitle: "1000 LPH+ Large-scale water treatment solutions for factories and commercial complexes.",
+    // Reliable High-Quality Image of Industrial Plant Piping/Machinery (Matches RO Plant Aesthetic)
+    image: "https://images.unsplash.com/photo-1615811361269-669243c72b2c?q=80&w=2070&auto=format&fit=crop",
     color: "from-emerald-950",
     accent: "text-emerald-400",
     button: "bg-emerald-600 hover:bg-emerald-700",
-    link: "/shop"
+    link: "/about" // Redirect to About Us
   }
 ];
 
@@ -64,7 +66,7 @@ const HeroSlider: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % SLIDES.length);
-    }, 6000); // 6 seconds per slide
+    }, 6000); 
 
     return () => clearInterval(timer);
   }, []);
@@ -73,7 +75,7 @@ const HeroSlider: React.FC = () => {
   const prevSlide = () => setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
 
   return (
-    <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-slate-900">
+    <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-slate-900 font-sans">
       {SLIDES.map((slide, index) => (
         <div
           key={slide.id}
@@ -92,18 +94,22 @@ const HeroSlider: React.FC = () => {
             className={`w-full h-full object-cover transform transition-transform duration-[8000ms] ease-out ${
               index === current ? 'scale-110' : 'scale-100'
             }`}
+            onError={(e) => {
+              // Fallback to a stable industrial image if primary fails
+              e.currentTarget.src = "https://images.unsplash.com/photo-1581093458791-9f302e68383e?q=80&w=2070";
+            }}
           />
 
           {/* Content */}
           <div className="absolute inset-0 z-20 flex items-center justify-center md:justify-start">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex flex-col justify-center pb-20 md:pb-0">
               <div className="max-w-3xl animate-slide-up mt-10 md:mt-0">
-                <div className={`inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs md:text-sm font-medium mb-4 md:mb-6 ${index === current ? 'animate-fade-in' : ''}`}>
+                <div className={`inline-block px-3 py-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs md:text-sm font-semibold tracking-wide mb-4 md:mb-6 ${index === current ? 'animate-fade-in' : ''}`}>
                    Aquacare Collection • 0{slide.id}
                 </div>
                 
                 {/* Mobile Friendly Typography */}
-                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight mb-4 md:mb-6 leading-tight drop-shadow-lg">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white tracking-tight mb-4 md:mb-6 leading-tight drop-shadow-lg">
                   {slide.title.split(' ').map((word, i) => (
                     <span key={i} className={i === 0 ? slide.accent : 'text-white'}>
                       {word}{' '}
@@ -111,7 +117,7 @@ const HeroSlider: React.FC = () => {
                   ))}
                 </h1>
                 
-                <p className="text-lg md:text-xl text-slate-100 mb-8 md:mb-10 max-w-xl leading-relaxed drop-shadow-md font-medium">
+                <p className="text-lg md:text-xl text-slate-100 mb-8 md:mb-10 max-w-xl leading-relaxed drop-shadow-md font-medium text-opacity-90">
                   {slide.subtitle}
                 </p>
                 
@@ -130,7 +136,7 @@ const HeroSlider: React.FC = () => {
         </div>
       ))}
 
-      {/* Slide Indicators - Moved up to avoid overlap with bottom tab */}
+      {/* Slide Indicators */}
       <div className="absolute bottom-20 md:bottom-12 left-0 right-0 z-30 flex justify-center gap-2 md:gap-3">
         {SLIDES.map((_, idx) => (
           <button
