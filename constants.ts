@@ -1,4 +1,13 @@
+
 import { Product, Order } from './types';
+
+export const COMPANY_DETAILS = {
+  name: "Aquacare Enterprises",
+  adminName: "Tanaji Gavali",
+  adminEmail: "tanajig@gmail.com",
+  adminPhone: "7620643886",
+  address: "Shop No-6, Plot No. 1/2, Sumurthi Prakash Tower Near Savaskar Hospital Old Hotgi Naka, Hotgi Rd, Solapur, Maharashtra 413003"
+};
 
 export const PRODUCTS: Product[] = [
   {
@@ -20,7 +29,7 @@ export const PRODUCTS: Product[] = [
     price: 45000,
     description: 'High-efficiency solar-powered air cooler. Perfect for off-grid living and eco-conscious homes.',
     features: ['Zero Electricity Bill', 'Silent Operation', 'Turbo Cooling Mode', 'Battery Backup Included'],
-    image: 'https://images.unsplash.com/photo-1546552356-3fae876a61ca?auto=format&fit=crop&w=400&q=80',
+    image: 'https://cpimg.tistatic.com/05466436/b/4/Stainless-Steel-Water-Cooler.jpg',
     rating: 4.6,
     reviews: 89,
     stock: 12
@@ -51,15 +60,15 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p5',
-    name: 'DesertStorm Solar AC',
-    category: 'Solar Coolers',
-    price: 65000,
-    description: '1.5 Ton Solar Air Conditioner. Cools your home using the power of the sun.',
-    features: ['Hybrid Solar/Grid', 'WiFi Control', 'Inverter Technology', 'Fast Cooling'],
-    image: 'https://images.unsplash.com/photo-1563950708942-db5d9dcca7a7?auto=format&fit=crop&w=400&q=80',
-    rating: 4.7,
-    reviews: 42,
-    stock: 8
+    name: 'Industrial RO Plant 1000 LPH',
+    category: 'Industrial RO Plants',
+    price: 185000,
+    description: 'Heavy-duty 1000 LPH Industrial RO Plant with stainless steel skid, high-pressure pump, and FRP vessels.',
+    features: ['1000 Liters Per Hour', 'SS 304 Skid', 'Fully Automatic', 'TDS Controller'],
+    image: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Reverse_osmosis_desalination_plant.jpg',
+    rating: 5.0,
+    reviews: 12,
+    stock: 5
   },
   {
     id: 'p6',
@@ -75,10 +84,21 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
+// Initial mock orders if storage is empty
 export const MOCK_ORDERS: Order[] = [
-  { id: 'ORD-001', customerName: 'Amit Sharma', total: 14999, status: 'Delivered', date: '2023-10-15' },
-  { id: 'ORD-002', customerName: 'Priya Singh', total: 65000, status: 'Shipped', date: '2023-10-20' },
-  { id: 'ORD-003', customerName: 'Rahul Verma', total: 7999, status: 'Pending', date: '2023-10-22' },
+  { 
+    id: 'ORD-001', 
+    userId: 'mock-user-1',
+    customerName: 'Amit Sharma', 
+    customerEmail: 'amit@example.com',
+    customerPhone: '9876543210',
+    items: [],
+    total: 14999, 
+    status: 'Delivered', 
+    date: '2023-10-15',
+    deliveryDate: '2023-10-18',
+    paymentMethod: 'UPI'
+  },
 ];
 
-export const CATEGORIES = ['All', 'Water Filters', 'Solar Coolers', 'Solar Panels'];
+export const CATEGORIES = ['All', 'Water Filters', 'Solar Coolers', 'Solar Panels', 'Industrial RO Plants'];

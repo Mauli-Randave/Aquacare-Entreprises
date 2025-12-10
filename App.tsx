@@ -16,6 +16,7 @@ import About from './pages/About';
 import { AuthProvider } from './context/AuthContext';
 import { ProductProvider } from './context/ProductContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { OrderProvider } from './context/OrderContext';
 
 // --- Cart Context Setup ---
 interface CartContextType {
@@ -73,40 +74,42 @@ const App: React.FC = () => {
     <ThemeProvider>
       <AuthProvider>
         <ProductProvider>
-          <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
-            <Router>
-              <ScrollToTop />
-              <div className="flex flex-col min-h-screen">
-                <Routes>
-                  {/* Admin Route */}
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  
-                  {/* Auth Routes */}
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  
-                  {/* Public/Protected Routes */}
-                  <Route path="*" element={
-                    <>
-                      <Navbar />
-                      <main className="flex-grow">
-                        <Routes>
-                          <Route path="/" element={<Home />} />
-                          <Route path="/shop" element={<Shop />} />
-                          <Route path="/product/:id" element={<ProductDetail />} />
-                          <Route path="/cart" element={<Cart />} />
-                          <Route path="/profile" element={<Profile />} />
-                          <Route path="/about" element={<About />} />
-                        </Routes>
-                      </main>
-                      <Footer />
-                    </>
-                  } />
-                </Routes>
-              </div>
-            </Router>
-          </CartContext.Provider>
-        </ProductProvider>
+          <OrderProvider>
+            <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart }}>
+              <Router>
+                <ScrollToTop />
+                <div className="flex flex-col min-h-screen">
+                  <Routes>
+                    {/* Admin Route */}
+                    <Route path="/admin" element={<AdminDashboard />} />
+                    
+                    {/* Auth Routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    
+                    {/* Public/Protected Routes */}
+                    <Route path="*" element={
+                      <>
+                        <Navbar />
+                        <main className="flex-grow">
+                          <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/shop" element={<Shop />} />
+                            <Route path="/product/:id" element={<ProductDetail />} />
+                            <Route path="/cart" element={<Cart />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/about" element={<About />} />
+                          </Routes>
+                        </main>
+                        <Footer />
+                      </>
+                    } />
+                  </Routes>
+                </div>
+              </Router>
+            </CartContext.Provider>
+            </OrderProvider>
+          </ProductProvider>
       </AuthProvider>
     </ThemeProvider>
   );

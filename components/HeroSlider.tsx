@@ -51,8 +51,8 @@ const SLIDES = [
     id: 5,
     title: "Industrial RO Plants",
     subtitle: "1000 LPH+ Large-scale water treatment solutions for factories and commercial complexes.",
-    // Reliable High-Quality Image of Industrial Plant Piping/Machinery (Matches RO Plant Aesthetic)
-    image: "https://images.unsplash.com/photo-1615811361269-669243c72b2c?q=80&w=2070&auto=format&fit=crop",
+    // Verified working High-Quality Image of Industrial Plant Piping/Machinery
+    image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=2070&auto=format&fit=crop",
     color: "from-emerald-950",
     accent: "text-emerald-400",
     button: "bg-emerald-600 hover:bg-emerald-700",

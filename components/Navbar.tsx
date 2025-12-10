@@ -1,10 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, LayoutDashboard, User, LogIn, LogOut, Filter, Droplets, Sun, Moon } from 'lucide-react';
+import { ShoppingCart, Menu, X, LayoutDashboard, User, LogIn, LogOut, Filter, Droplets, Sun, Moon, Phone } from 'lucide-react';
 import { useCart } from '../App';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { COMPANY_DETAILS } from '../constants';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,6 +115,12 @@ const Navbar: React.FC = () => {
                   <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${isTransparent ? 'bg-cyan-300' : 'bg-cyan-500'} ${isActive(link.path) ? 'w-full' : ''}`}></span>
                 </Link>
               ))}
+              
+              {/* Contact Info (Visible on Desktop) */}
+              <div className={`hidden lg:flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full border ${isTransparent ? 'border-white/20 text-white/80' : 'border-slate-200 text-slate-500'}`}>
+                  <Phone size={12} />
+                  <span>{COMPANY_DETAILS.adminPhone}</span>
+              </div>
               
               {/* Theme Toggle */}
               <button 

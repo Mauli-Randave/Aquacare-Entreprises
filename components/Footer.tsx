@@ -1,5 +1,7 @@
+
 import React from 'react';
-import { Droplets, Facebook, Twitter, Instagram, Mail, ArrowRight, Heart } from 'lucide-react';
+import { Droplets, Facebook, Twitter, Instagram, Mail, ArrowRight, Heart, MapPin, Phone } from 'lucide-react';
+import { COMPANY_DETAILS } from '../constants';
 
 const Footer: React.FC = () => {
   return (
@@ -32,20 +34,43 @@ const Footer: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                  Aquacare
+                  {COMPANY_DETAILS.name.split(" ")[0]}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.3em] text-cyan-600 font-bold">Enterprises</span>
               </div>
             </div>
-            <p className="text-slate-400 leading-relaxed text-sm pr-4">
-              Redefining sustainability through advanced water purification and solar energy technology. Innovating for a cleaner, smarter tomorrow.
-            </p>
-            <div className="flex items-center gap-4">
+            
+            <div className="space-y-3 text-sm text-slate-400">
+                <p className="flex items-start gap-3">
+                    <MapPin size={16} className="mt-1 text-cyan-500 shrink-0" />
+                    <span>{COMPANY_DETAILS.address}</span>
+                </p>
+                <p className="flex items-center gap-3">
+                    <Phone size={16} className="text-cyan-500 shrink-0" />
+                    <span>{COMPANY_DETAILS.adminPhone}</span>
+                </p>
+                <p className="flex items-center gap-3">
+                    <Mail size={16} className="text-cyan-500 shrink-0" />
+                    <span>{COMPANY_DETAILS.adminEmail}</span>
+                </p>
+            </div>
+
+            <div className="flex items-center gap-4 pt-2">
                {/* Socials with Magnetic Hover Effect */}
-               {[Facebook, Twitter, Instagram].map((Icon, idx) => (
-                <a key={idx} href="#" className="group relative p-3 rounded-xl bg-slate-900 border border-slate-800 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-900/20">
+               {[
+                 { Icon: Facebook, link: "#" },
+                 { Icon: Twitter, link: "#" },
+                 { Icon: Instagram, link: "https://www.instagram.com/_mauli_randave_/" }
+               ].map((social, idx) => (
+                <a 
+                  key={idx} 
+                  href={social.link} 
+                  target={social.link !== "#" ? "_blank" : "_self"}
+                  rel="noopener noreferrer"
+                  className="group relative p-3 rounded-xl bg-slate-900 border border-slate-800 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-900/20"
+                >
                   <div className="absolute inset-0 bg-gradient-to-tr from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <Icon size={18} className="relative z-10 text-slate-400 group-hover:text-white transition-colors" />
+                  <social.Icon size={18} className="relative z-10 text-slate-400 group-hover:text-white transition-colors" />
                 </a>
               ))}
             </div>
@@ -108,7 +133,7 @@ const Footer: React.FC = () => {
         
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
           <p>
-            © {new Date().getFullYear()} Aquacare Enterprises. Crafted with <Heart size={10} className="inline text-red-500 mx-0.5 fill-current" /> for a better planet.
+            © {new Date().getFullYear()} {COMPANY_DETAILS.name}. Crafted with <Heart size={10} className="inline text-red-500 mx-0.5 fill-current" /> for a better planet.
           </p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

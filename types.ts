@@ -1,3 +1,4 @@
+
 export interface Product {
   id: string;
   name: string;
@@ -18,10 +19,16 @@ export interface CartItem extends Product {
 
 export interface Order {
   id: string;
+  userId: string; // To link to specific user
   customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  items: CartItem[];
   total: number;
-  status: 'Pending' | 'Shipped' | 'Delivered' | 'Processing' | 'Cancelled';
+  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
   date: string;
+  deliveryDate: string;
+  paymentMethod: 'UPI' | 'COD';
 }
 
 export interface AdminStats {
